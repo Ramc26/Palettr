@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Poppins:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700;900&display=swap");
+
+body {
+  font-family: 'Poppins', sans-serif;  /* Modern sans-serif for body text */
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    #FF6B6B,
+    #FFD93D,
+    #6BCB77,
+    #4D96FF,
+    #FF6B6B
+  );
+  background-size: 400% 400%;
+  animation: gradientWave 20s ease infinite;  /* 20s loop, same as title */
+  z-index: -1;
+}
+
+@keyframes gradientWave {
+  0%   { background-position:  0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:  0% 50%; }
+}
+
+@keyframes gradientWaveText {
+  0%   { background-position:  0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:  0% 50%; }
+}
+
+.app-title {
+  /* Use a bold serif for maximum impact */
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 4.5rem;               /* Adjust if needed for smaller screens below */
+  line-height: 1.2;
+  margin: 1rem auto 0.5rem auto;
+  padding: 0.5rem 1rem;          /* Provide padding so animated background is visible */
+  text-align: center;
+  position: relative;
+  z-index: 2;                     /* Above everything else */
+
+  /* Clip the animated gradient to the text glyphs */
+  background: linear-gradient(
+    45deg,
+    #4D96FF,  /* reversed 1 */
+    #6BCB77,  /* reversed 2 */
+    #FFD93D,  /* reversed 3 */
+    #FF6B6B,  /* reversed 4 */
+    #4D96FF   /* reversed 5 */
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;  /* Make text itself transparent so gradient shows */
+  background-clip: text;
+  color: transparent;
+
+  animation: gradientWaveText 20s ease infinite;
+  mix-blend-mode: difference;     /* Ensure text inverts visually on brightest slides */
+  filter: invert(0);              /* No invert initially—mix-blend-mode handles contrast */
+}
+
+.app-title.light-text {
+  color: black !important;
+  background: none !important;
+  -webkit-text-fill-color: black !important;
+  mix-blend-mode: normal !important;
+}
+
+.caption {
+  font-family: 'Lato', sans-serif;  /* Clean sans-serif for caption */
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #000;                      /* Solid black to contrast against white / light segments */
+  margin-bottom: 2rem;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);  /* Light shadow to keep caption legible on bright BG */
+}
+
+.input-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  margin-bottom: 2rem;
+}
+.form-control {
+  border-radius: 8px;
+}
+.btn-primary {
+  background-color: #4D96FF;
+  border-color: #4D96FF;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background-color: #3B7EDB;
+  border-color: #3B7EDB;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Tag Pills                                                                          */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+.tag-pill {
+  margin: 0.25rem;
+  cursor: pointer;
+  border: 1px solid #000000;
+  color: #000000;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tag-pill.active {
+  background-color: #ffd900 !important;
+  color: #333333 !important;
+  border: 1px solid #ccc;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Reasoning Container                                                                */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+#reasoning-container {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #333333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+display: none;
+
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Loader Overlay                                                                     */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+#loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;                /* Hidden initially */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;         /* Don’t intercept when hidden */
+}
+#loader-overlay.show {
+  display: flex;
+  pointer-events: all;          /* Block interactions underneath when visible */
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Palette Grid & Cards                                                               */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+#palettes-container {
+  max-width: 1000px;
+  width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(1, 1fr); /* 1 col by default */
+}
+@media (min-width: 576px) {
+  #palettes-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on ≥576px */
+  }
+}
+@media (min-width: 992px) {
+  #palettes-container {
+    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns on ≥992px */
+  }
+}
+
+.palette-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.palette-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Color blocks inside each palette card */
+.color-block {
+  height: 80px;
+  position: relative;
+}
+.color-block span {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.color-block:hover span {
+  opacity: 1;
+}
+
+/* Overlay on each palette card for “View Details” */
+.copy-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;        /* Shown on hover */
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.palette-card:hover .copy-overlay {
+  display: flex;       /* Show overlay on hover */
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Modal Color Circles & Codes                                                        */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+#modal-color-circles .color-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+#modal-color-circles .color-label {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  word-break: break-word;
+}
+#modal-codes p {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────────── */
+/* Responsive Tweaks                                                                 */
+/* ──────────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 576px) {
+  h1.app-title {
+    font-size: 2.2rem;
+  }
+  .caption {
+    font-size: 1rem;
+  }
+}
