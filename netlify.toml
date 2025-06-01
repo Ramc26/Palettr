@@ -1,18 +1,17 @@
+# netlify.toml
+
 [build]
-  command = "pip install -r requirements.txt && python build.py"
-  publish = "static" # This tells Netlify where your static files are
+  # No build step needed, since we are serving plain HTML/CSS/JS
+  # If you had a bundler (e.g. Webpack), you'd put that command here.
+  command = "echo 'No build required for static site.'"
 
-[functions]
-  directory = "netlify/functions"
-  external_node_modules = [] # We're using Python, not Node.js functions
-  python_version = "3.9" # Or your preferred Python version that Netlify supports
+  # Publish directory must point to the 'static' folder
+  publish = "static"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/main/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  # If you decide later to add Netlify Functions (JS), you can uncomment:
+  # functions = "netlify/functions"
+  
+[dev]
+  # Allow Netlify Dev to proxy API calls to local FastAPI if you run it locally
+  command = "netlify dev"
+  port = 8888
