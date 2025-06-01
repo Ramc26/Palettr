@@ -25,7 +25,6 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/static/style.css" />
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -82,7 +81,7 @@
         <input type="hidden" id="tags_input" name="tags" value="" />
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary w-100">
+        <button type="submit">
           Unleash Colors!✨
         </button>
       </form>
@@ -93,7 +92,7 @@
 
 
     <!-- Palette grid container -->
-    <div id="palettes-container" class="mb-5"></div>
+    <center><div id="palettes-container"></div></center>
 
     <!-- Footer/credits -->
     <footer>
@@ -116,14 +115,9 @@
       </div>
       <div class="modal-body">
         <!-- Container for color circles -->
-        <div
-          id="modal-color-circles"
-          class="d-flex flex-wrap justify-content-center gap-4 mb-3"
-        >
+        <div id="modal-color-circles" class="d-flex flex-wrap justify-content-center gap-4 mb-3">
           <!-- JS will insert one <div> per color, containing a colored circle and HEX/RGB text -->
         </div>
-        <!-- Container for CMYK code lines -->
-        <div id="modal-codes" class="text-center"></div>
       </div>
     </div>
   </div>

@@ -88,6 +88,28 @@ body {
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);  /* Light shadow to keep caption legible on bright BG */
 }
 
+button {
+  background: #fbca1f;
+  font-family: inherit;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+button:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+}
+
 .input-card {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
@@ -173,12 +195,15 @@ display: none;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(1, 1fr); /* 1 col by default */
+  justify-content: center;               /* Center the grid tracks horizontally */
 }
+
 @media (min-width: 576px) {
   #palettes-container {
     grid-template-columns: repeat(2, 1fr); /* 2 columns on ≥576px */
   }
 }
+
 @media (min-width: 992px) {
   #palettes-container {
     grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns on ≥992px */
@@ -193,6 +218,8 @@ display: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease;
+  /* If you want each card itself narrower than a full 1fr cell: */
+  /* width: 250px; margin: 0 auto; */
 }
 .palette-card:hover {
   transform: translateY(-4px);
@@ -244,7 +271,7 @@ display: none;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 1px solid #000000;
 }
 #modal-color-circles .color-label {
   margin-top: 0.5rem;

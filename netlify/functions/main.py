@@ -1,4 +1,4 @@
-# main.py
+# netlify/functions/main.py
 
 import os
 import re
@@ -9,6 +9,7 @@ from fastapi import FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
 from google import genai
+import awsgi
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -43,6 +44,12 @@ async def generate_palettes(
     tags: str = Form(""),
     count: int = Form(None)
 ):
+    # Retrieve API key from environment variables (Netlify will provide it)
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    if not GEMINI_API_KEY:
+        logger.critical("GEMINI_API_KEY not set in Netlify environment.")
+        return JSONResponse(status_code=500, content={"error": "GEMINI_API_KEY is not configured."})
+
     num_palettes = count if (count and count > 0) else 6
     logger.info(f"Received /api/palettes request: prompt='{user_prompt}', tags='{tags}', count={num_palettes}")
 
@@ -53,7 +60,7 @@ async def generate_palettes(
         "Respond in JSON with keys \"reasoning\" (string) and \"palettes\" (array of arrays)."
         "\nFormat:\n"
         "{\n"
-        '  "reasoning": "Your reasoning text here",\n'
+        '  "reasoning": "Your reasoning text here with emojies sprinkled",\n'
         '  "palettes": [ ["#FF5733","#C70039","#900C3F"], ... ]\n'
         "}\n\n"
         "Output only valid JSON—no extra text."
@@ -61,7 +68,9 @@ async def generate_palettes(
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
-        chat = client.chats.create(model="gemini-2.0-flash")
+        # Note: If client.chats.create is new and not available, you might need to use genai.GenerativeModel
+        # and then model.start_chat() or model.generate_content(). The existing code seems fine based on current genai versions.
+        chat = client.chats.create(model="gemini-1.5-flash")
         response = chat.send_message(gemini_prompt)
         raw_text = response.text
         logger.debug(f"Raw Gemini response: {raw_text}")
@@ -89,7 +98,13 @@ async def health_check():
     logger.info("Health check requested")
     return {"status": "ok"}
 
+# This is the important part for Netlify Functions:
+# Use awsgi to wrap your FastAPI app
+def handler(event, context):
+    return awsgi.response(app, event, context)
+
+# For local development outside Netlify Function environment
 if __name__ == "__main__":
     import uvicorn
-    logger.info("Launching Uvicorn server on port 8000")
+    logger.info("Launching Uvicorn server on port 8000 for local development")
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
