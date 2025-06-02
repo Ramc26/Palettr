@@ -90,7 +90,7 @@ async def generate_palettes(
             status_code=500,
             content={"error": "Failed to parse Gemini response", "raw": cleaned}
         )
-
+    print(f"Palettes:{palettes}")
     return JSONResponse(content={"reasoning": reasoning, "palettes": palettes})
 
 @app.get("/health")

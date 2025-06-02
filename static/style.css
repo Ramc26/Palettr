@@ -194,19 +194,25 @@ display: none;
   width: 100%;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(1, 1fr); /* 1 col by default */
-  justify-content: center;               /* Center the grid tracks horizontally */
+
+  /* 1 column by default (mobile) */
+  grid-template-columns: repeat(1, 1fr);
+
+  /* IMPORTANT: Prevent cards from stretching to match the tallest item in the row */
+  align-items: start;   /* ← Add this line to keep each card only as tall as its content  */
 }
 
 @media (min-width: 576px) {
   #palettes-container {
     grid-template-columns: repeat(2, 1fr); /* 2 columns on ≥576px */
+    align-items: start;                     /* ensure it still applies in all breakpoints */
   }
 }
 
 @media (min-width: 992px) {
   #palettes-container {
-    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns on ≥992px */
+    grid-template-columns: repeat(3, 1fr); /* exactly 3 columns on ≥992px */
+    align-items: start;                     /* keep cards’ heights “wrap‐content” rather than stretch */
   }
 }
 
@@ -218,12 +224,12 @@ display: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease;
-  /* If you want each card itself narrower than a full 1fr cell: */
-  /* width: 250px; margin: 0 auto; */
+  /* NO FIXED HEIGHT—let card content dictate its own height */
 }
 .palette-card:hover {
   transform: translateY(-4px);
 }
+
 
 /* Color blocks inside each palette card */
 .color-block {
