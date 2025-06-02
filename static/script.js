@@ -105,19 +105,24 @@ $(document).ready(function () {
 
   // ─── Render palette cards in a responsive grid (no padding for short palettes) ─
   function renderPalettes(palettes) {
+    const hint = $("#palette-hint");
     const container = $("#palettes-container");
     container.empty();
 
     if (!palettes.length) {
+      hint.hide();
       container.html("<p class='text-white-50'>No palettes found.</p>");
       return;
     }
+
+  // Show the hint text above the grid
+  hint.show();
 
     palettes.forEach((palette, idx) => {
       // Create the card container
       const card = $("<div>").addClass("palette-card").attr("data-index", idx);
 
-      // Filter out any falsy values before creating blocks :contentReference[oaicite:14]{index=14}
+      // Filter out any falsy values before creating blocks
       const validColors = palette.filter((hex) => typeof hex === "string" && hex.startsWith("#"));
 
       // For each valid hex, append exactly one color-block
