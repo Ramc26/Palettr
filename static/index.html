@@ -5,7 +5,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palettr | AI Color Generator</title>
+  <link rel="icon" type="image/png" href="static/images/favicon.png">
 
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://palettr.onrender.com/" />  
+  <meta property="og:title"       content="Palettr | AI-Powered Color Generator" />
+  <meta property="og:description" content="Generate stunning color palettes for your projects with AI. Choose tags like 'retro', 'pastel', and more!" />
+  <meta property="og:image"       href="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmR2dXQ0OThrbHdwaXdkNTFxazV0Zm14OXR2NXpjbmpnOWd5YTV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t2pfuP5gAbKWg35dAn/giphy.gif" />
+  <meta property="og:locale"      content="en_US" />
+  <!-- Optionally, specify image dimensions: -->
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@itsmeramc" />
+  <meta name="twitter:title"       content="Palettr | AI-Powered Color Generator" />
+  <meta name="twitter:description" content="Generate stunning color palettes for your projects with AI. Choose tags like 'retro', 'pastel', and more!" />
+  <meta name="twitter:image"       content="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmR2dXQ0OThrbHdwaXdkNTFxazV0Zm14OXR2NXpjbmpnOWd5YTV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/t2pfuP5gAbKWg35dAn/giphy.gif" />
+
+
+  <meta name="description" content="Palettr: AI-powered color palette generator. Instantly create beautiful color schemes based on mood, theme, or tags like 'vintage' and 'neon'." />
+  <meta name="keywords"    content="color palette, AI color generator, design tools, pastel, retro, vintage, Palettr" />
+  <meta name="author"      content="Ram Bikkina" />
+  <meta name="theme-color" content="#4D96FF" />
   <!-- Google Fonts -->
   <link
   href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;500&display=swap"
@@ -25,6 +48,7 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/static/style.css" />
+
 </head>
 
 <body>
@@ -33,17 +57,19 @@
 
 <!-- Loader overlay (hidden by default) -->
   <div id="loader-overlay" class="flex-column justify-content-center align-items-center">
-    <div class="spinner-border text-light" role="status"></div>
-    <div id="loader-caption" class="mt-3 text-light fw-semibold"></div>
+    <!-- <div class="spinner-border text-light" role="status"></div> -->
+    <div class="loader"></div>
+    <div id="loader-caption" class="mt-3 text-light fw-semibold" style="color: ivory;"></div>
   </div> <!-- Hidden initially; displayed only during AJAX calls :contentReference[oaicite:16]{index=16} -->
 
 
   <!-- Main content container -->
   <div class="main-container text-center">
     <!-- App Title & Caption -->
-    <!-- Palettr Header & Caption -->
-    <h1 class="app-title">Palettr</h1>
-    <p class="caption">AI-powered color palette generator for every mood &amp; theme</p>
+    <div class="logo-container">
+      <img src="static/images/LogoGif.gif" alt="Palettr Logo" class="logo-gif" draggable="false" oncontextmenu="return false;">
+    </div>
+    <p class="caption">🎨 AI-powered color wizard for every mood & vibe — even your weird ones 😜✨</p>
 
     <!-- Input card -->
     <div class="input-card mx-auto">
@@ -58,7 +84,7 @@
             name="user_prompt"
             class="form-control"
             rows="2"
-            placeholder="e.g., Cozy vintage café or Futuristic sci‐fi interface"
+            placeholder="e.g., Cozy vintage café or 10 futuristic sci-fi palettes for a calm, focused mood."
             required
           ></textarea>
         </div>
@@ -95,9 +121,14 @@
     <center><div id="palettes-container"></div></center>
 
     <!-- Footer/credits -->
-    <footer>
-      <small class="text-black-100">©2025 Palettr. Built with ❤️ and AI.</small>
-    </footer>
+<footer>
+  <small class="text-black-100">
+    ©2025 Palettr. Built with ❤️ and AI. Developed by 
+    <a href="https://ramc26.github.io/RamTechSuite" target="_blank" rel="noopener">
+      RamBikkina
+    </a>
+  </small>
+</footer>
   </div>
 
 <!-- Palette Detail Modal (static/index.html) -->

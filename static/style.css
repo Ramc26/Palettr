@@ -40,44 +40,30 @@ body {
   100% { background-position:  0% 50%; }
 }
 
+
+/* Hide default .app-title (if still present elsewhere) */
 .app-title {
-  /* Use a bold serif for maximum impact */
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 4.5rem;               /* Adjust if needed for smaller screens below */
-  line-height: 1.2;
-  margin: 1rem auto 0.5rem auto;
-  padding: 0.5rem 1rem;          /* Provide padding so animated background is visible */
-  text-align: center;
+  display: none !important;
+}
+
+/* Container for GIF logo */
+.logo-container {
+  display: inline-block;
   position: relative;
-  z-index: 2;                     /* Above everything else */
-
-  /* Clip the animated gradient to the text glyphs */
-  background: linear-gradient(
-    45deg,
-    #4D96FF,  /* reversed 1 */
-    #6BCB77,  /* reversed 2 */
-    #FFD93D,  /* reversed 3 */
-    #FF6B6B,  /* reversed 4 */
-    #4D96FF   /* reversed 5 */
-  );
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;  /* Make text itself transparent so gradient shows */
-  background-clip: text;
-  color: transparent;
-
-  animation: gradientWaveText 20s ease infinite;
-  mix-blend-mode: difference;     /* Ensure text inverts visually on brightest slides */
-  filter: invert(0);              /* No invert initially—mix-blend-mode handles contrast */
+  width: auto;
+  height: auto;
+  margin: 5rem auto 0.5rem auto;
 }
 
-.app-title.light-text {
-  color: black !important;
-  background: none !important;
-  -webkit-text-fill-color: black !important;
-  mix-blend-mode: normal !important;
+.logo-gif {
+  max-width: 500px; 
+  width: 100%;
+  height: auto;
+  user-select: none;  /* prevents text selection highlighting */
+  -webkit-user-drag: none; /* Safari, Chrome */
+  box-shadow: #000;
 }
+
 
 .caption {
   font-family: 'Lato', sans-serif;  /* Clean sans-serif for caption */
@@ -85,7 +71,6 @@ body {
   font-size: 1.1rem;
   color: #000;                      /* Solid black to contrast against white / light segments */
   margin-bottom: 2rem;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);  /* Light shadow to keep caption legible on bright BG */
 }
 
 button {
@@ -112,12 +97,20 @@ button:active {
 
 .input-card {
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   padding: 2rem;
   max-width: 600px;
   width: 100%;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); */
   margin-bottom: 2rem;
+  border: 2px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.5em 0.5em rgb(0, 0, 0);
+}
+
+.input-card:hover{
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 1em 1em;
 }
 .form-control {
   border-radius: 8px;
@@ -174,7 +167,7 @@ display: none;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.846);
   display: none;                /* Hidden initially */
   align-items: center;
   justify-content: center;
@@ -186,6 +179,28 @@ display: none;
   pointer-events: all;          /* Block interactions underneath when visible */
 }
 
+.loader {
+  display: inline-flex;
+  gap: 10px;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  height: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    linear-gradient(#222 0 0) top/100% 0% no-repeat,
+    radial-gradient(farthest-side,#000 95%,#0000) 50%/8px 8px no-repeat
+    #fff;
+  animation: l9 3s infinite ease-in;
+}
+@keyframes l9 {
+  0%  {background-size:100% 0%,8px 8px;background-position:top, 50% 50%}
+  80% {background-size:100% 70%,8px 8px;background-position:top, 50% 70%}
+  84%,
+  100%{background-size:100% 0%,8px 8px;background-position:top, 50% 50%}
+}
 /* ──────────────────────────────────────────────────────────────────────────────── */
 /* Palette Grid & Cards                                                               */
 /* ──────────────────────────────────────────────────────────────────────────────── */
@@ -294,6 +309,9 @@ display: none;
 /* Responsive Tweaks                                                                 */
 /* ──────────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 576px) {
+  body{
+    padding: 1rem;
+  }
   h1.app-title {
     font-size: 2.2rem;
   }
